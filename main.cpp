@@ -8,7 +8,7 @@ using namespace sf;
     {
         //window init
         RenderWindow app(VideoMode(800, 600, 32), "SFML Dino");
-        app.setFramerateLimit(60);
+        app.setFramerateLimit(8);
         app.setVerticalSyncEnabled(true);
         Texture background_tex;
         if (!background_tex.loadFromFile("textures/background.png"))
