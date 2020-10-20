@@ -8,7 +8,7 @@ using namespace sf;
     {
         //window init
         RenderWindow app(VideoMode(800, 600, 32), "SFML Dino");
-        app.setFramerateLimit(8);
+        app.setFramerateLimit(60);
         app.setVerticalSyncEnabled(true);
         Texture background_tex;
         if (!background_tex.loadFromFile("textures/background.png"))
@@ -22,26 +22,23 @@ using namespace sf;
         while (app.isOpen())
         {
             count = timer.getElapsedTime();
-            if ((count-_count) == seconds(0.125))
+            app.clear();
+            Event event;
+            while (app.pollEvent(event))
             {
-                app.clear();
-                Event event;
-                while (app.pollEvent(event))
-                {
-                    if (event.type == Event::Closed)
-                        app.close();
-                }
-                _count = count;
-                int sec = 8*count.asSeconds();
-                String path = "textures/player/f.png";            
-                path[16]=(sec%2)+'0';
-                if (!player_tex.loadFromFile(path))
-                    return EXIT_FAILURE;
-                player.setTexture(player_tex);
-                app.draw(background);
-                app.draw(player);
-                app.display();
+                if (event.type == Event::Closed)
+                    app.close();
             }
+            _count = count;
+            int sec = 8*count.asSeconds();
+            String path = "textures/player/f.png";            
+            path[16]=(sec%2)+'0';
+            if (!player_tex.loadFromFile(path))
+                return EXIT_FAILURE;
+            player.setTexture(player_tex);
+            app.draw(background);
+            app.draw(player);
+            app.display();
         }
         
         return EXIT_SUCCESS;
