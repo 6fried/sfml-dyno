@@ -24,6 +24,7 @@ using namespace sf;
             count = timer.getElapsedTime();
             if ((count-_count) == seconds(0.125))
             {
+                app.clear();
                 Event event;
                 while (app.pollEvent(event))
                 {
@@ -37,7 +38,6 @@ using namespace sf;
                 if (!player_tex.loadFromFile(path))
                     return EXIT_FAILURE;
                 player.setTexture(player_tex);
-                app.clear();
                 app.draw(background);
                 app.draw(player);
                 app.display();
