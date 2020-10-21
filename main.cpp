@@ -1,6 +1,7 @@
-#include <istream>
+#include <iostream>
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
+#include "player.cpp"
 
 using namespace sf;
 
@@ -14,14 +15,10 @@ using namespace sf;
         if (!background_tex.loadFromFile("textures/background.png"))
             return EXIT_FAILURE;
         Sprite background(background_tex);
-        Sprite player;
-        player.setPosition(10, 300);
-        Texture player_tex;
-        Clock timer;
-        Time count, _count;
+        Player player;
+        //game loop
         while (app.isOpen())
         {
-            count = timer.getElapsedTime();
             app.clear();
             Event event;
             while (app.pollEvent(event))
@@ -29,15 +26,7 @@ using namespace sf;
                 if (event.type == Event::Closed)
                     app.close();
             }
-            _count = count;
-            int sec = 8*count.asSeconds();
-            String path = "textures/player/f.png";            
-            path[16]=(sec%2)+'0';
-            if (!player_tex.loadFromFile(path))
-                return EXIT_FAILURE;
-            player.setTexture(player_tex);
-            app.draw(background);
-            app.draw(player);
+            player.run(app, background);
             app.display();
         }
         
