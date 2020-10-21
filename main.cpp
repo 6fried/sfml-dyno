@@ -17,6 +17,8 @@ using namespace sf;
         Sprite background(background_tex);
         Player player;
         //game loop
+        sf::Clock m_timer;
+        sf::Time m_count, m__count;
         while (app.isOpen())
         {
             app.clear();
@@ -26,7 +28,12 @@ using namespace sf;
                 if (event.type == Event::Closed)
                     app.close();
             }
-            player.run(app, background);
+            m_count = m_timer.getElapsedTime();
+            m__count = m_count;
+            int sec = 8*m_count.asSeconds();
+            player.run(sec);
+            app.draw(background);
+            app.draw(player.m_player);
             app.display();
         }
         
