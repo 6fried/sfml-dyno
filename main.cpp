@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
-#include "player.cpp"
+#include "player.hpp"
 
 using namespace sf;
 
