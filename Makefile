@@ -15,7 +15,7 @@ SRC = 		$(shell find Player -name 'player.cpp')\
 
 OBJ = 		$(SRC:.cpp=.o)
 
-all:		fclean $(NAME) clean 
+all:		$(NAME) clean 
 
 $(NAME): 	$(OBJ)
 		rm -f $(NAME)

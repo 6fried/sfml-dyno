@@ -31,7 +31,7 @@ using namespace sf;
 					case Event::Closed:
 						app.close();
 						break;
-					case Event::KeyPressed:
+					case (Event::KeyReleased):
 						player.jump(app, background);
 						break;
 				}
