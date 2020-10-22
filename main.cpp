@@ -1,7 +1,6 @@
-#include <iostream>
-#include <cstdlib>
 #include <SFML/Graphics.hpp>
 #include "player.hpp"
+#include "obstacles.hpp"
 
 using namespace sf;
 
@@ -16,6 +15,7 @@ using namespace sf;
 			return EXIT_FAILURE;
 		Sprite background(background_tex);
 		Player player;
+		Obstacles obstacle;
 		Clock timer;
 		Time count;
 		//game loop
@@ -31,15 +31,41 @@ using namespace sf;
 					case Event::Closed:
 						app.close();
 						break;
-					case (Event::KeyReleased):
-						player.jump(app, background);
+					case Event::KeyPressed:
+						if (Keyboard::isKeyPressed(Keyboard::Space))
+						{
+							while(player.m_player.getPosition().y >= 160)
+							{
+								player.move(Vector2f(0, -4));
+								obstacle.move();
+								app.draw(background);
+								app.draw(obstacle.m_obstacle);
+								app.draw(player.m_player);
+								app.display();
+							}
+							count = timer.getElapsedTime();
+
+							while(player.m_player.getPosition().y <= 300)
+							{
+								player.move(Vector2f(0, 4));
+								obstacle.move();
+								app.draw(background);
+								app.draw(obstacle.m_obstacle);
+								app.draw(player.m_player);
+								app.display();
+							}
+
+						}
 						break;
 				}
 			}
 			int sec = 32*count.asSeconds();
 			player.run(sec);
+			obstacle.move();
+			app.draw(obstacle.m_obstacle);
 			app.draw(background);
 			app.draw(player.m_player);
+			app.draw(obstacle.m_obstacle);
 			app.display();
 		}
 		

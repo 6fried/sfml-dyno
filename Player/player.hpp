@@ -14,6 +14,5 @@ class Player
 		Sprite m_player;
 		Player();
 		void run(int ind);
-		void jump(RenderWindow &app, Sprite &background);
-		void draw(RenderTarget &target);
+		void move(Vector2f speed);
 };
