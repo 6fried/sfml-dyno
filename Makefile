@@ -8,10 +8,11 @@ CPP =		g++
 
 NAME =		Dino
 
-CPPFLAGS =	-lsfml-graphics -lsfml-window -lsfml-system -IPlayer -IObstacles
+CPPFLAGS =	-lsfml-graphics -lsfml-window -lsfml-system -IPlayer -IObstacles -IGame
 
 SRC = 		$(shell find Player -name 'player.cpp')\
 			$(shell find Obstacles -name 'obstacles.cpp')\
+			$(shell find Game -name 'game.cpp')\
 			main.cpp
 
 OBJ = 		$(SRC:.cpp=.o)

@@ -11,6 +11,5 @@ public:
     Sprite m_obstacle;
     Obstacles();
     void move(Vector2f m_speed = Vector2f(-4, 0));
-    void draw(RenderTarget &app);
     Obstacles generate();
 };
