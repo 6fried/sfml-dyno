@@ -11,8 +11,7 @@ Game::Game()
 	if (!background_tex.loadFromFile("textures/background.png"))
 			 exit(EXIT_FAILURE);
 	background.setTexture(background_tex);
-	obstacles.push_back(new Obstacles);	
-	map.open("../textures/map.mp");
+	map.open("textures/map.mp");
 	if (!map)
 		exit(EXIT_FAILURE);
 	
@@ -25,11 +24,19 @@ Game::~Game()
 
 void Game::run()
 {
-	Thread thread(&Game::read_map, &app);
-	thread.launch();
 	while (app.isOpen())
 	{
 		count = timer.getElapsedTime();
+		take_event();
+		read_map();
+		app.draw(background);
+		for (int i = 0; i < obstacles.size(); i++){
+			obstacles[i]->move();
+			if (obstacles[i]->m_obstacle.getPosition().x == -20)
+				obstacles.erase(obstacles.begin()+i);
+			else app.draw(obstacles[i]->m_obstacle);}
+		app.draw(player.m_player);
+
 		app.display();
 	}
 	exit(EXIT_SUCCESS);
@@ -116,22 +123,19 @@ void Game::read_map()
 	char c;
 	
 	map.get(c);
+	switch (c)
 	{
-		switch (c)
-		{
-			case 46:  //'.'
-				still_running();
-				break;
-			case 124: //'|'
-				still_running();
-				create_obstacles();
-				break;
-			default:
-				exit(EXIT_FAILURE);
-				break;
-		}
+		case 46:  //'.'
+			still_running(0.5);
+		break;
+		case 124: //'|'
+			still_running(0.1);
+			create_obstacles();
+		break;
+		default:
+			still_running();
+		break;
 	}
-	still_running();
 }
 
 
